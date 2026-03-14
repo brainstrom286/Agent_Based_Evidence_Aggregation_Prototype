@@ -6,6 +6,9 @@ Components:
 - Evidence schema for standardized evidence representation
 - Simulated evidence agents (literature, expression, interaction)
 - Aggregation module using confidence-weighted scoring
+- Representation of heterogeneous evidence sources (DepMap, OpenTargets, literature)
+- A richer evidence schema supporting different evidence types
+- An orchestration layer that deterministically coordinates agents
 
 Run demo:
 
