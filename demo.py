@@ -1,23 +1,18 @@
 from orchestrator import collect_evidence
 from aggregator import aggregate_evidence
 
-gene_id = "TP53"
+genes = ["TP53", "BRCA1", "EGFR", "GENE_X"]
 
-evidences = collect_evidence(gene_id)
+for gene in genes:
+    print(f"\n{gene}")
 
-final_score, contributions = aggregate_evidence(evidences)
+    evidences = collect_evidence(gene)
 
-output = {
-    "gene_id": gene_id,
-    "final_score": round(final_score, 3),
-    "contribution_breakdown": contributions,
-    "aggregation_version": "v2"
-}
+    print("\nCollected Evidence:")
+    for ev in evidences:
+        print(ev.to_dict())
 
-print("\nCollected Evidence:\n")
+    final_score, contributions = aggregate_evidence(evidences)
 
-for ev in evidences:
-    print(ev.to_dict())
-
-print("\nFinal Output:\n")
-print(output)
+    print("\nFinal Score:", round(final_score, 3))
+    print("Contribution Breakdown:", contributions)

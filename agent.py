@@ -1,46 +1,69 @@
-import random
 from evidence_schema import Evidence
 
+# DepMap Agent
 def depmap_agent(gene_id):
 
-    value = random.uniform(-1, 0)
-    normalized = abs(value)
+    data = {
+        "TP53": 0.9,
+        "BRCA1": 0.7,
+        "EGFR": 0.9,   # strong
+        "GENE_X": None  # missingevidence
+    }
+
+    value = data.get(gene_id, 0.3)
+
+    if value is None:
+        return None
 
     return Evidence(
         gene_id,
         source="DepMap",
         evidence_type="gene_dependency",
         value=value,
-        normalized_score=normalized,
+        normalized_score=value,
         confidence_score=0.9
     )
 
 
+# OpenTargets Agent
 def opentargets_agent(gene_id):
 
-    score = random.uniform(0.4, 0.9)
+    data = {
+        "TP53": 0.85,
+        "BRCA1": 0.9,
+        "EGFR": 0.4,   #conflicting
+        "GENE_X": 0.3
+    }
+
+    value = data.get(gene_id, 0.4)
 
     return Evidence(
         gene_id,
         source="OpenTargets",
         evidence_type="gene_disease_association",
-        value=score,
-        normalized_score=score,
+        value=value,
+        normalized_score=value,
         confidence_score=0.85
     )
 
 
+# Literature Agent
 def literature_agent(gene_id):
 
-    count = random.randint(10, 200)
+    data = {
+        "TP53": 0.95,
+        "BRCA1": 0.9,
+        "EGFR": 0.8,
+        "GENE_X": 0.2
+    }
 
-    normalized = min(count / 200, 1)
+    value = data.get(gene_id, 0.3)
 
     return Evidence(
         gene_id,
         source="Literature",
         evidence_type="publication_support",
-        value=count,
-        normalized_score=normalized,
+        value=value,
+        normalized_score=value,
         confidence_score=0.7
     )

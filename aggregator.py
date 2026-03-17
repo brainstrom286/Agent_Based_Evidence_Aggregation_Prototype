@@ -1,4 +1,7 @@
-#t_s=total_score / t_w=total_weight /c_b=contribution_breakdown
+# t_s = total_score
+# t_w = total_weight
+# c_b = contribution_breakdown
+
 def aggregate_evidence(evidences):
 
     t_s = 0
@@ -12,8 +15,9 @@ def aggregate_evidence(evidences):
         t_s += contribution
         t_w += weight
 
-        c_b[ev.evidence_type] = contribution
+
+        c_b[ev.source] = round(contribution, 3)
 
     final = t_s / t_w if t_w > 0 else 0
 
-    return final, c_b
+    return round(final, 3), c_b

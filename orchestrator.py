@@ -11,7 +11,9 @@ def collect_evidence(gene_id):
     evidences = []
 
     for agent in agents:
-        evidence = agent(gene_id)
-        evidences.append(evidence)
+        ev = agent(gene_id)
+
+        if ev is not None:   # handling missing evidence
+            evidences.append(ev)
 
     return evidences
